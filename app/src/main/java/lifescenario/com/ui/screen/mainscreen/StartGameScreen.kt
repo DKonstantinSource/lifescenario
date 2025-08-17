@@ -1,4 +1,4 @@
-package lifescenario.com.ui.screen
+package lifescenario.com.ui.screen.mainscreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -17,12 +17,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import lifescenario.com.R
+import lifescenario.com.ui.viewmodel.GameViewModel
 
 @Composable
 fun StartGameScreen(
-    onNewLifeClick: () -> Unit,
-    onBetterLifeClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    viewModel: GameViewModel,
+    onSettingsClick: () -> Unit,
+    onNewGameClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -52,39 +53,48 @@ fun StartGameScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Заголовок с символом звезды
             Text(
                 text = "Сможешь Лучше ?",
-                fontSize = 34.sp,
-                color = Color.White
+                fontSize = 30.sp,
+                color = Color.White,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Лучший результат
             Text(
-                text = "Лучший результат: 1290 очков ★",
+                text = "Лучший результат: 1290 очков ",
                 fontSize = 18.sp,
                 color = Color.White
             )
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            GameButton(text = "Новая жизнь", onClick = onNewLifeClick)
+            GameButton(
+                text = "Новая жизнь",
+                onClick = {
+                    viewModel.hideIntroAndStartGame()
+                    onNewGameClick()
+                }
+            )
+
             Spacer(modifier = Modifier.height(16.dp))
-            GameButton(text = "Лучшая жизнь", onClick = onBetterLifeClick)
-            Spacer(modifier = Modifier.height(16.dp))
-            GameButton(text = "Настройки", onClick = onSettingsClick)
+
+            GameButton(
+                text = "Настройки",
+                onClick = onSettingsClick
+            )
         }
     }
 }
+
 
 @Composable
 fun GameButton(text: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.White.copy(alpha = 0.2f)
+            containerColor = Color.White.copy(alpha = 0.1f)
         ),
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier
