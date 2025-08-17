@@ -1,0 +1,10 @@
+package lifescenario.com.di
+
+
+import lifescenario.com.ui.viewmodel.GameViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+
+val viewModelModule = module {
+    viewModel { GameViewModel(get()) }
+}
