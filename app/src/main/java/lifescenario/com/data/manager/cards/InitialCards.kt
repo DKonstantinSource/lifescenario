@@ -3,6 +3,8 @@ package lifescenario.com.data.manager.cards
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.db.entity.CardType
 import lifescenario.com.data.db.entity.stat.PersonalStat.*
+import lifescenario.com.data.manager.cards.mature.MatureCardHobbie
+import lifescenario.com.data.manager.cards.mature.MatureCardRest
 import lifescenario.com.data.manager.cards.twostage.CardAfterMarried
 import lifescenario.com.data.manager.cards.twostage.CardAfterCareer
 import lifescenario.com.data.manager.cards.youth.WorkAfterUniversity
@@ -65,6 +67,33 @@ object InitialCards {
             statEffect = mapOf(RICHES to 3, EDUCATION to 1),
             nextCardPersonalIds = CardAfterCareer.cards.map { it.cardPersonalId },
             backgroundImage = "image_university.jpg"
+        ),
+        CardEntity(
+            cardPersonalId = 400,
+            title = "Взрослые года",
+            description = "Дети выросли, пора подумать и о себе!",
+            type = CardType.STATS,
+            statEffect = emptyMap(),
+            nextCardPersonalIds = listOf(401, 402),
+            backgroundImage = "image_adult_years.jpg"
+        ),
+        CardEntity(
+            cardPersonalId = 401,
+            title = "Спокойная жизнь",
+            description = "Работать и делать накопления",
+            type = CardType.STATS,
+            statEffect = emptyMap(),
+            nextCardPersonalIds = MatureCardRest.cards.map { it.cardPersonalId },
+            backgroundImage = "image_adult_years_1.jpg"
+        ),
+        CardEntity(
+            cardPersonalId = 402,
+            title = "Хобби и путешествия",
+            description = "Пора постигать новое, хобби, путешествовать, развлечения!",
+            type = CardType.STATS,
+            statEffect = emptyMap(),
+            nextCardPersonalIds = MatureCardHobbie.cards.map { it.cardPersonalId },
+            backgroundImage = "image_adult_years_2.jpg"
         )
 
     )

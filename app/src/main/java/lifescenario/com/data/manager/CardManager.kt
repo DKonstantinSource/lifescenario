@@ -9,6 +9,9 @@ import lifescenario.com.data.manager.cards.InitialCards
 import lifescenario.com.data.manager.cards.youth.WorkAfterUniversity
 import lifescenario.com.data.manager.cards.youth.WorkWithoutUniversity
 import lifescenario.com.data.manager.cards.WorldEvents
+import lifescenario.com.data.manager.cards.home.CardHomeBuying
+import lifescenario.com.data.manager.cards.mature.MatureCardHobbie
+import lifescenario.com.data.manager.cards.mature.MatureCardRest
 import lifescenario.com.data.manager.cards.twostage.CardAfterCareer
 import lifescenario.com.data.manager.cards.twostage.CardAfterMarried
 
@@ -25,7 +28,8 @@ class CardManager(
     private var worldEventCounter = 0
     private var secondWorldEventWaveStarted = false
     private var lastWorldEventCardId: Int? = null
-
+    private var marriedStageCounter = 0
+    private var careerStageCounter = 0
     private val totalWorldEvents = 16
 
     override fun startGame() {
@@ -41,11 +45,41 @@ class CardManager(
         currentCard = selectedCard
 
         val nextCards: List<CardEntity> = when {
+            // Начало ветки
             selectedCard.cardPersonalId == 2 -> WorkAfterUniversity.cards.shuffled().take(2)
             selectedCard.cardPersonalId == 3 -> WorkWithoutUniversity.cards.shuffled().take(2)
 
-            selectedCard.cardPersonalId == 301 -> CardAfterMarried.cards.shuffled().take(2)
-            selectedCard.cardPersonalId == 302 -> CardAfterCareer.cards.shuffled().take(2)
+            selectedCard.cardPersonalId == 301 -> {
+                marriedStageCounter = 0
+                CardAfterMarried.cards.shuffled().take(2)
+            }
+
+            selectedCard.cardPersonalId == 302 -> {
+                careerStageCounter = 0
+                CardAfterCareer.cards.shuffled().take(2)
+            }
+
+            CardAfterMarried.cards.contains(selectedCard) -> {
+                marriedStageCounter++
+                val start = marriedStageCounter * 2
+                val end = minOf(start + 2, CardAfterMarried.cards.size)
+                if (marriedStageCounter < 5) {
+                    CardAfterMarried.cards.subList(start, end)
+                } else {
+                    emptyList() // дальше управляет ViewModel
+                }
+            }
+
+            CardAfterCareer.cards.contains(selectedCard) -> {
+                careerStageCounter++
+                val start = careerStageCounter * 2
+                val end = minOf(start + 2, CardAfterCareer.cards.size)
+                if (careerStageCounter < 5) {
+                    CardAfterCareer.cards.subList(start, end)
+                } else {
+                    emptyList()
+                }
+            }
 
             (WorkAfterUniversity.cards.contains(selectedCard) || WorkWithoutUniversity.cards.contains(selectedCard)) &&
                     worldEventCounter < 10 -> {
@@ -61,12 +95,19 @@ class CardManager(
                 listOfNotNull(InitialCards.getCardByPersonalId(300))
             }
 
+            selectedCard.cardPersonalId == 400 -> listOfNotNull(
+                InitialCards.getCardByPersonalId(401),
+                InitialCards.getCardByPersonalId(402)
+            )
+
+            selectedCard.cardPersonalId == 401 -> MatureCardRest.cards.shuffled().take(2)
+            selectedCard.cardPersonalId == 402 -> MatureCardHobbie.cards.shuffled().take(2)
+
             else -> repository.getNextCards(selectedCard, 2)
         }
 
         _currentCards.value = nextCards
     }
-
 
 
 
@@ -92,6 +133,12 @@ class CardManager(
             _currentCards.value = cards
         }
     }
+
+    override fun isEndOfCareerOrMarriageBranch(): Boolean {
+        return marriedStageCounter >= 5 || careerStageCounter >= 5
+    }
+
+
 
     override fun getCurrentCard(): CardEntity? = currentCard
     override fun getCurrentCards(): List<CardEntity> = _currentCards.value

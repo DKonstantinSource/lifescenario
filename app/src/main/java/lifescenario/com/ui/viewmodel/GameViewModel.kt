@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.db.entity.stat.PersonalStat
 import lifescenario.com.data.manager.CardManagerContract
+import lifescenario.com.data.manager.cards.home.CardHomeBuying
 
 class GameViewModel(
     private val cardManager: CardManagerContract
@@ -33,6 +34,10 @@ class GameViewModel(
 
     private val _showInsufficientStatOverlay = MutableStateFlow<PersonalStat?>(null)
     val showInsufficientStatOverlay: StateFlow<PersonalStat?> = _showInsufficientStatOverlay
+
+    private val _showHomeBuyingOverlay = MutableStateFlow(false)
+    val showHomeBuyingOverlay: StateFlow<Boolean> = _showHomeBuyingOverlay
+
 
     private val _cardPending = MutableStateFlow<CardEntity?>(null)
 
@@ -63,6 +68,7 @@ class GameViewModel(
             applyCardEffect(card)
         }
     }
+
 
     fun buyStatToApplyPendingCard() {
         val card = _cardPending.value ?: return
@@ -95,7 +101,20 @@ class GameViewModel(
 
             cardManager.selectCard(card)
             _currentCards.value = cardManager.getCurrentCards()
+
+            if (cardManager.isEndOfCareerOrMarriageBranch() && !_showHomeBuyingOverlay.value) {
+                _showHomeBuyingOverlay.value = true
+            }
         }
+    }
+
+    fun hideHomeBuyingOverlay() {
+        _showHomeBuyingOverlay.value = false
+        loadHomeBuyingCards()
+    }
+
+    fun loadHomeBuyingCards() {
+        _currentCards.value = CardHomeBuying.cards.shuffled().take(2)
     }
 
 

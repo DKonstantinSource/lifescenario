@@ -1,30 +1,30 @@
-package lifescenario.com.ui.screen.newgame
+package lifescenario.com.ui.screen.newgame.overlay
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.border
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.border
-
 
 @Composable
-fun IntroOverlay(onContinue: () -> Unit) {
-
+fun HomeBuyingOverlay(
+    onContinue: () -> Unit,
+    message: String = "Настал следующий этап, пора купить дом!"
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xAA000000)),
         contentAlignment = Alignment.Center
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxWidth(0.7f)
-                .fillMaxHeight(0.45f)
+                .fillMaxHeight(0.3f)
                 .background(
                     color = MaterialTheme.colorScheme.surface,
                     shape = MaterialTheme.shapes.medium
@@ -38,12 +38,14 @@ fun IntroOverlay(onContinue: () -> Unit) {
             contentAlignment = Alignment.Center
         ) {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 32.dp),
                 verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "Ты просыпаешься в новой жизни. Все воспоминания стёрты.\n\nСделай выбор, который изменит всё.",
+                    text = message,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -56,6 +58,5 @@ fun IntroOverlay(onContinue: () -> Unit) {
                 }
             }
         }
-
     }
 }

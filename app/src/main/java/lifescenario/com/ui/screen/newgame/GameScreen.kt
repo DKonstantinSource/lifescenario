@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import lifescenario.com.ui.screen.newgame.overlay.GameOverlay
+import lifescenario.com.ui.screen.newgame.overlay.HomeBuyingOverlay
 import lifescenario.com.ui.screen.newgame.overlay.InsufficientStatOverlay
 import lifescenario.com.ui.viewmodel.GameViewModel
 
@@ -65,6 +66,17 @@ fun GameScreen(viewModel: GameViewModel) {
                     .padding(top = 32.dp)
             )
         }
+
+        if (viewModel.showHomeBuyingOverlay.collectAsState().value) {
+            HomeBuyingOverlay(
+                onContinue = {
+                    viewModel.hideHomeBuyingOverlay()
+                    viewModel.loadHomeBuyingCards()
+                }
+            )
+        }
+
+
 
         if (statInsufficient.value != null) {
             InsufficientStatOverlay(

@@ -11,4 +11,5 @@ interface CardManagerContract {
     fun selectCards(cards: List<CardEntity>)
     fun getCurrentCard(): CardEntity?
     fun getCurrentCards(): List<CardEntity>
+    fun isEndOfCareerOrMarriageBranch(): Boolean
 }
