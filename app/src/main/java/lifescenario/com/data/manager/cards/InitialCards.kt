@@ -3,6 +3,8 @@ package lifescenario.com.data.manager.cards
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.db.entity.CardType
 import lifescenario.com.data.db.entity.stat.PersonalStat.*
+import lifescenario.com.data.manager.cards.youth.WorkAfterUniversity
+import lifescenario.com.data.manager.cards.youth.WorkWithoutUniversity
 
 object InitialCards {
 
@@ -33,9 +35,35 @@ object InitialCards {
             statEffect = mapOf(RICHES to 1),
             nextCardPersonalIds = WorkWithoutUniversity.cards.map { it.cardPersonalId },
             backgroundImage = "image_university.jpg"
+        ),
+
+        CardEntity(
+            cardPersonalId = 300,
+            title = "Этап взрослой жизни!",
+            description = "Вам пора принять решение!",
+            type = CardType.STATS,
+            statEffect = mapOf(HEALTH to 2, RICHES to 5),
+            nextCardPersonalIds = listOf(301, 302),
+            backgroundImage = "image_university.jpg"
+        ),
+        CardEntity(
+            cardPersonalId = 301,
+            title = "Жениться",
+            description = "Вы создаете семью. Здоровье +2, богатство -1",
+            type = CardType.STATS,
+            statEffect = mapOf(HEALTH to 2, RICHES to -1),
+            nextCardPersonalIds = WorkAfterUniversity.cards.map { it.cardPersonalId },
+            backgroundImage = "image_university.jpg"
+        ),
+        CardEntity(
+            cardPersonalId = 302,
+            title = "Карьера",
+            description = "Вы выбираете карьерный путь. Богатство +3, образование +1",
+            type = CardType.STATS,
+            statEffect = mapOf(RICHES to 3, EDUCATION to 1),
+            nextCardPersonalIds = WorkAfterUniversity.cards.map { it.cardPersonalId },
+            backgroundImage = "image_university.jpg"
         )
-
-
 
     )
 

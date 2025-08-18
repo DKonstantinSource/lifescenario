@@ -1,4 +1,4 @@
-package lifescenario.com.data.manager.cards
+package lifescenario.com.data.manager.cards.youth
 
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.db.entity.CardType

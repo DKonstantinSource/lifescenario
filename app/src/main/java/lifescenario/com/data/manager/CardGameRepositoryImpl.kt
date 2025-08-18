@@ -3,8 +3,8 @@ package lifescenario.com.data.manager
 import kotlinx.coroutines.flow.Flow
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.manager.cards.InitialCards
-import lifescenario.com.data.manager.cards.WorkAfterUniversity
-import lifescenario.com.data.manager.cards.WorkWithoutUniversity
+import lifescenario.com.data.manager.cards.youth.WorkAfterUniversity
+import lifescenario.com.data.manager.cards.youth.WorkWithoutUniversity
 
 class CardGameRepositoryImpl : CardGameRepositoryContract {
 
