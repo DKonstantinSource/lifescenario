@@ -84,14 +84,12 @@ class GameViewModel(
 
     private fun applyCardEffect(card: CardEntity) {
         viewModelScope.launch {
-            if (card.cardPersonalId != 300) {
-                card.statEffect.forEach { (stat, value) ->
-                    when (stat) {
-                        PersonalStat.HEALTH -> _health.value += value
-                        PersonalStat.RICHES -> _riches.value += value
-                        PersonalStat.EDUCATION -> _education.value += value
-                        PersonalStat.MONEY -> _money.value += value
-                    }
+            card.statEffect.forEach { (stat, value) ->
+                when (stat) {
+                    PersonalStat.HEALTH -> _health.value += value
+                    PersonalStat.RICHES -> _riches.value += value
+                    PersonalStat.EDUCATION -> _education.value += value
+                    PersonalStat.MONEY -> _money.value += value
                 }
             }
 
@@ -99,6 +97,8 @@ class GameViewModel(
             _currentCards.value = cardManager.getCurrentCards()
         }
     }
+
+
 
 
     private fun getStatValue(stat: PersonalStat): Int = when (stat) {

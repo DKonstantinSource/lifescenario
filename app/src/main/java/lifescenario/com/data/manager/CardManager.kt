@@ -1,5 +1,6 @@
 package lifescenario.com.data.manager
 
+import android.util.Log
 import lifescenario.com.data.db.entity.CardEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -8,6 +9,8 @@ import lifescenario.com.data.manager.cards.InitialCards
 import lifescenario.com.data.manager.cards.youth.WorkAfterUniversity
 import lifescenario.com.data.manager.cards.youth.WorkWithoutUniversity
 import lifescenario.com.data.manager.cards.WorldEvents
+import lifescenario.com.data.manager.cards.twostage.CardAfterCareer
+import lifescenario.com.data.manager.cards.twostage.CardAfterMarried
 
 
 class CardManager(
@@ -20,9 +23,10 @@ class CardManager(
     private var currentCard: CardEntity? = null
     private var worldEventsQueue: MutableList<CardEntity> = mutableListOf()
     private var worldEventCounter = 0
-    private val maxWorldEvents = 10
+    private var secondWorldEventWaveStarted = false
     private var lastWorldEventCardId: Int? = null
 
+    private val totalWorldEvents = 16
 
     override fun startGame() {
         val firstCard = repository.getCardByPersonalId(1) ?: return
@@ -30,6 +34,7 @@ class CardManager(
         _currentCards.value = listOf(firstCard)
         worldEventCounter = 0
         worldEventsQueue.clear()
+        secondWorldEventWaveStarted = false
     }
 
     override fun selectCard(selectedCard: CardEntity) {
@@ -39,26 +44,21 @@ class CardManager(
             selectedCard.cardPersonalId == 2 -> WorkAfterUniversity.cards.shuffled().take(2)
             selectedCard.cardPersonalId == 3 -> WorkWithoutUniversity.cards.shuffled().take(2)
 
+            selectedCard.cardPersonalId == 301 -> CardAfterMarried.cards.shuffled().take(2)
+            selectedCard.cardPersonalId == 302 -> CardAfterCareer.cards.shuffled().take(2)
+
             (WorkAfterUniversity.cards.contains(selectedCard) || WorkWithoutUniversity.cards.contains(selectedCard)) &&
-                    worldEventCounter == 0 -> {
-                worldEventsQueue = WorldEvents.getRandomEvents(maxWorldEvents).toMutableList()
+                    worldEventCounter < 10 -> {
+                if (worldEventCounter == 0) {
+                    worldEventsQueue = WorldEvents.getRandomEvents(10).toMutableList()
+                }
                 takeNextWorldEvents()
             }
 
-            worldEventCounter in 1 until maxWorldEvents -> takeNextWorldEvents()
+            worldEventCounter in 1 until 10 -> takeNextWorldEvents()
 
-            // Завершение всех мировых событий — показываем карту 300
-            worldEventCounter >= maxWorldEvents && worldEventsQueue.isEmpty() &&
-                    selectedCard.cardPersonalId != 300 -> {
+            worldEventCounter >= 10 && selectedCard.cardPersonalId !in 300..302 -> {
                 listOfNotNull(InitialCards.getCardByPersonalId(300))
-            }
-
-            // Если нажали на карту 300 — показываем выбор 301/302
-            selectedCard.cardPersonalId == 300 -> {
-                listOfNotNull(
-                    InitialCards.getCardByPersonalId(301),
-                    InitialCards.getCardByPersonalId(302)
-                )
             }
 
             else -> repository.getNextCards(selectedCard, 2)
@@ -78,14 +78,13 @@ class CardManager(
         }
 
         worldEventCounter += count
+
         return if (count > 0) {
             List(count) { worldEventsQueue.removeAt(0) }
         } else {
-            listOfNotNull(InitialCards.getCardByPersonalId(300))
+            repository.getNextCards(currentCard ?: return emptyList(), 2)
         }
     }
-
-
 
     override fun selectCards(cards: List<CardEntity>) {
         if (cards.isNotEmpty()) {
@@ -95,6 +94,5 @@ class CardManager(
     }
 
     override fun getCurrentCard(): CardEntity? = currentCard
-
     override fun getCurrentCards(): List<CardEntity> = _currentCards.value
 }

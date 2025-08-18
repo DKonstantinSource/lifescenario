@@ -3,6 +3,8 @@ package lifescenario.com.data.manager.cards
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.db.entity.CardType
 import lifescenario.com.data.db.entity.stat.PersonalStat.*
+import lifescenario.com.data.manager.cards.twostage.CardAfterMarried
+import lifescenario.com.data.manager.cards.twostage.CardAfterCareer
 import lifescenario.com.data.manager.cards.youth.WorkAfterUniversity
 import lifescenario.com.data.manager.cards.youth.WorkWithoutUniversity
 
@@ -52,7 +54,7 @@ object InitialCards {
             description = "Вы создаете семью. Здоровье +2, богатство -1",
             type = CardType.STATS,
             statEffect = mapOf(HEALTH to 2, RICHES to -1),
-            nextCardPersonalIds = WorkAfterUniversity.cards.map { it.cardPersonalId },
+            nextCardPersonalIds = CardAfterMarried.cards.map { it.cardPersonalId },
             backgroundImage = "image_university.jpg"
         ),
         CardEntity(
@@ -61,7 +63,7 @@ object InitialCards {
             description = "Вы выбираете карьерный путь. Богатство +3, образование +1",
             type = CardType.STATS,
             statEffect = mapOf(RICHES to 3, EDUCATION to 1),
-            nextCardPersonalIds = WorkAfterUniversity.cards.map { it.cardPersonalId },
+            nextCardPersonalIds = CardAfterCareer.cards.map { it.cardPersonalId },
             backgroundImage = "image_university.jpg"
         )
 
