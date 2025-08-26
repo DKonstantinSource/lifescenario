@@ -15,7 +15,7 @@ object CardAfterMarried {
             statEffect = mapOf(RICHES to -2, HEALTH to 2),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_first_child.jpg"
         ),
         CardEntity(
             cardPersonalId = 352,
@@ -25,7 +25,7 @@ object CardAfterMarried {
             statEffect = mapOf(HEALTH to 2, RICHES to -1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_rest_vacation.jpg"
         ),
         CardEntity(
             cardPersonalId = 353,
@@ -35,7 +35,7 @@ object CardAfterMarried {
             statEffect = mapOf(RICHES to -3, HEALTH to 1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_renovation.jpg"
         ),
         CardEntity(
             cardPersonalId = 354,
@@ -45,7 +45,7 @@ object CardAfterMarried {
             statEffect = mapOf(HEALTH to 1, EDUCATION to 1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_marie_support.jpg"
         ),
         CardEntity(
             cardPersonalId = 355,

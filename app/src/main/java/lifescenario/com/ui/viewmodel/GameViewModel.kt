@@ -11,7 +11,8 @@ import lifescenario.com.data.manager.CardManagerContract
 import lifescenario.com.data.manager.cards.home.CardHomeBuying
 
 class GameViewModel(
-    private val cardManager: CardManagerContract
+    private val cardManager: CardManagerContract,
+    private val economyViewModel : FinanceViewModel
 ) : ViewModel() {
 
     private val _health = MutableStateFlow(0)
@@ -23,17 +24,15 @@ class GameViewModel(
     private val _education = MutableStateFlow(0)
     val education: StateFlow<Int> = _education
 
-    private val _money = MutableStateFlow(2000)
-    val money: StateFlow<Int> = _money
-
     private val _currentCards = MutableStateFlow<List<CardEntity>>(emptyList())
     val currentCards: StateFlow<List<CardEntity>> = _currentCards
 
     private val _isIntroVisible = MutableStateFlow(true)
     val isIntroVisible: StateFlow<Boolean> = _isIntroVisible
 
-    private val _showInsufficientStatOverlay = MutableStateFlow<PersonalStat?>(null)
-    val showInsufficientStatOverlay: StateFlow<PersonalStat?> = _showInsufficientStatOverlay
+    private val _showInsufficientStatOverlay = MutableStateFlow<List<PersonalStat>>(emptyList())
+    val showInsufficientStatOverlay: StateFlow<List<PersonalStat>> = _showInsufficientStatOverlay
+
 
     private val _showHomeBuyingOverlay = MutableStateFlow(false)
     val showHomeBuyingOverlay: StateFlow<Boolean> = _showHomeBuyingOverlay
@@ -44,6 +43,10 @@ class GameViewModel(
     val statPurchaseCost = 500
 
     private var worldEventsQueue: MutableList<CardEntity> = mutableListOf()
+
+
+
+    val money: StateFlow<Int> = economyViewModel.money
 
     fun hideIntroAndStartGame() {
         _isIntroVisible.value = false
@@ -57,12 +60,12 @@ class GameViewModel(
     }
 
     fun selectCard(card: CardEntity) {
-        val insufficientStat = card.statEffect.entries.firstOrNull { (stat, value) ->
+        val missingStats = card.statEffect.entries.filter { (stat, value) ->
             value < 0 && getStatValue(stat) + value < 0
-        }
+        }.map { it.key }
 
-        if (insufficientStat != null) {
-            _showInsufficientStatOverlay.value = insufficientStat.key
+        if (missingStats.isNotEmpty()) {
+            _showInsufficientStatOverlay.value = missingStats
             _cardPending.value = card
         } else {
             applyCardEffect(card)
@@ -72,19 +75,21 @@ class GameViewModel(
 
     fun buyStatToApplyPendingCard() {
         val card = _cardPending.value ?: return
-        val stat = _showInsufficientStatOverlay.value ?: return
+        val stats = _showInsufficientStatOverlay.value
+        if (stats.isEmpty()) return
 
-        if (_money.value >= statPurchaseCost) {
-            _money.value -= statPurchaseCost
-            increaseStat(stat, 1)
-            _showInsufficientStatOverlay.value = null
+        val totalCost = statPurchaseCost * stats.size
+        if (economyViewModel.money.value >= totalCost) {
+            economyViewModel.applyCustomChange(-totalCost, "покупка статов")
+            stats.forEach { increaseStat(it, 1) }
+            _showInsufficientStatOverlay.value = emptyList()
             _cardPending.value = null
             selectCard(card)
         }
     }
 
     fun cancelStatPurchase() {
-        _showInsufficientStatOverlay.value = null
+        _showInsufficientStatOverlay.value = emptyList()
         _cardPending.value = null
     }
 
@@ -95,9 +100,12 @@ class GameViewModel(
                     PersonalStat.HEALTH -> _health.value += value
                     PersonalStat.RICHES -> _riches.value += value
                     PersonalStat.EDUCATION -> _education.value += value
-                    PersonalStat.MONEY -> _money.value += value
+                    PersonalStat.MONEY -> economyViewModel.applyCustomChange(value, "карта")
                 }
             }
+
+            card.salary?.let { economyViewModel.applySalary(it) }
+            card.tax?.let { economyViewModel.applyTax(it) }
 
             cardManager.selectCard(card)
             _currentCards.value = cardManager.getCurrentCards()
@@ -107,6 +115,7 @@ class GameViewModel(
             }
         }
     }
+
 
     fun hideHomeBuyingOverlay() {
         _showHomeBuyingOverlay.value = false
@@ -124,13 +133,13 @@ class GameViewModel(
         PersonalStat.HEALTH -> _health.value
         PersonalStat.RICHES -> _riches.value
         PersonalStat.EDUCATION -> _education.value
-        PersonalStat.MONEY -> _money.value
+        PersonalStat.MONEY -> economyViewModel.money.value
     }
 
     private fun increaseStat(stat: PersonalStat, value: Int) = when (stat) {
         PersonalStat.HEALTH -> _health.value += value
         PersonalStat.RICHES -> _riches.value += value
         PersonalStat.EDUCATION -> _education.value += value
-        PersonalStat.MONEY -> _money.value += value
+        PersonalStat.MONEY -> economyViewModel.applyCustomChange(value, "ручное повышение")
     }
 }

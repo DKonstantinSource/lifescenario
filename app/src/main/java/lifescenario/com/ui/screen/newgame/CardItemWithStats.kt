@@ -78,12 +78,54 @@ fun CardItemWithStats(
                 )
                 .padding(12.dp)
         ) {
+            // ✅ Сначала показываем зарплату
+            card.salary?.let { salary ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Зарплата +$salary",
+                        fontSize = 14.sp,
+                        color = Color(0xFF2ECC71)
+                    )
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_money),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = Color.Unspecified
+                    )
+                }
+            }
+
+            // ✅ Потом показываем налог
+            card.tax?.let { tax ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Налог -$tax",
+                        fontSize = 14.sp,
+                        color = Color(0xFFE74C3C)
+                    )
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_money),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = Color.Unspecified
+                    )
+                }
+            }
+
+            // ✅ Потом обычные статы
             card.statEffect.forEach { (stat, value) ->
                 val sign = if (value >= 0) "+" else "-"
                 val color = if (value >= 0) Color(0xFF2ECC71) else Color(0xFFE74C3C)
 
                 val iconRes = when (stat) {
-                    PersonalStat.HEALTH -> R.drawable.ic_heart
                     PersonalStat.HEALTH -> R.drawable.ic_heart
                     PersonalStat.RICHES -> R.drawable.ic_pig
                     PersonalStat.EDUCATION -> R.drawable.ic_book
@@ -109,8 +151,5 @@ fun CardItemWithStats(
                 }
             }
         }
-
-
-
     }
 }

@@ -45,7 +45,6 @@ class CardManager(
         currentCard = selectedCard
 
         val nextCards: List<CardEntity> = when {
-            // Начало ветки
             selectedCard.cardPersonalId == 2 -> WorkAfterUniversity.cards.shuffled().take(2)
             selectedCard.cardPersonalId == 3 -> WorkWithoutUniversity.cards.shuffled().take(2)
 
@@ -66,7 +65,7 @@ class CardManager(
                 if (marriedStageCounter < 5) {
                     CardAfterMarried.cards.subList(start, end)
                 } else {
-                    emptyList() // дальше управляет ViewModel
+                    emptyList()
                 }
             }
 

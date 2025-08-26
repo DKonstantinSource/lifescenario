@@ -36,7 +36,7 @@ object InitialCards {
             title = "Сразу работать",
             description = "Решаете заработать денег.",
             type = CardType.JOB,
-            statEffect = mapOf(RICHES to 1),
+            statEffect = mapOf(RICHES to 2),
             nextCardPersonalIds = WorkWithoutUniversity.cards.map { it.cardPersonalId },
             backgroundImage = "image_university.jpg"
         ),
@@ -46,7 +46,7 @@ object InitialCards {
             title = "Этап взрослой жизни!",
             description = "Вам пора принять решение!",
             type = CardType.STATS,
-            statEffect = mapOf(HEALTH to 2, RICHES to 5),
+            statEffect = mapOf(HEALTH to 1, RICHES to 2),
             nextCardPersonalIds = listOf(301, 302),
             backgroundImage = "image_university.jpg"
         ),
@@ -62,7 +62,7 @@ object InitialCards {
         CardEntity(
             cardPersonalId = 302,
             title = "Карьера",
-            description = "Вы выбираете карьерный путь. Богатство +3, образование +1",
+            description = "Вы выбираете карьерный путь",
             type = CardType.STATS,
             statEffect = mapOf(RICHES to 3, EDUCATION to 1),
             nextCardPersonalIds = CardAfterCareer.cards.map { it.cardPersonalId },

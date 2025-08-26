@@ -1,6 +1,5 @@
 package lifescenario.com.ui.screen.newgame.overlay
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,10 +16,10 @@ import lifescenario.com.data.db.entity.stat.PersonalStat
 import lifescenario.com.data.db.entity.stat.displayName
 
 
-
 @Composable
 fun InsufficientStatOverlay(
-    stat: PersonalStat,
+    missingStats: List<PersonalStat>,
+    totalCost: Int,
     canAfford: Boolean,
     onBuy: () -> Unit,
     onCancel: () -> Unit
@@ -39,12 +38,14 @@ fun InsufficientStatOverlay(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Не хватает атрибута: ${stat.displayName()}",
+                text = "Не хватает атрибутов: ${
+                    missingStats.joinToString(", ") { it.displayName() }
+                }",
                 color = Color.Black
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Восстановить за 500 монет?",
+                text = "Восстановить за $totalCost монет?",
                 color = Color.DarkGray
             )
             Spacer(modifier = Modifier.height(16.dp))

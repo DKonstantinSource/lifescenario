@@ -24,6 +24,8 @@ fun GameOverlay(
     education: Int,
     modifier: Modifier = Modifier
 ) {
+
+
     Row(
         modifier = modifier
             .fillMaxWidth()

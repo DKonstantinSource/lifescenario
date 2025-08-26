@@ -14,6 +14,7 @@ object CardHomeBuying {
             statEffect = mapOf(HEALTH to 1, RICHES to -2),
             salary = 0,
             tax = 450,
+            bonusScoreHomeBuying = 4000,
             backgroundImage = "image_apartment_studio.jpg"
         ),
         CardEntity(
@@ -24,6 +25,7 @@ object CardHomeBuying {
             statEffect = mapOf(HEALTH to 2, RICHES to -3),
             salary = 0,
             tax = 900,
+            bonusScoreHomeBuying = 5500,
             backgroundImage = "image_one_room_apartment.jpg"
         ),
         CardEntity(
@@ -34,6 +36,7 @@ object CardHomeBuying {
             statEffect = mapOf(HEALTH to 3, RICHES to -6),
             salary = 0,
             tax = 2000,
+            bonusScoreHomeBuying = 6000,
             backgroundImage = "image_townhouse.jpg"
         ),
         CardEntity(
@@ -44,6 +47,7 @@ object CardHomeBuying {
             statEffect = mapOf(HEALTH to 4, RICHES to -8),
             salary = 0,
             tax = 3000,
+            bonusScoreHomeBuying = 6000,
             backgroundImage = "image_country_house.jpg"
         ),
         CardEntity(
@@ -54,6 +58,7 @@ object CardHomeBuying {
             statEffect = mapOf(HEALTH to 4, RICHES to -8),
             salary = 0,
             tax = 3000,
+            bonusScoreHomeBuying = 8000,
             backgroundImage = "image_luxury_country_house.jpg"
         ),
         CardEntity(
@@ -64,6 +69,7 @@ object CardHomeBuying {
             statEffect = mapOf(HEALTH to 5, RICHES to -12),
             salary = 0,
             tax = 4000,
+            bonusScoreHomeBuying = 10000,
             backgroundImage = "image_mansion.jpg"
         )
     )

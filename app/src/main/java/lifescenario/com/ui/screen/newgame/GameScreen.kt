@@ -77,14 +77,15 @@ fun GameScreen(viewModel: GameViewModel) {
         }
 
 
-
-        if (statInsufficient.value != null) {
+        if (statInsufficient.value.isNotEmpty()) {
             InsufficientStatOverlay(
-                stat = statInsufficient.value!!,
-                canAfford = canAfford,
+                missingStats = statInsufficient.value,
+                totalCost = viewModel.statPurchaseCost * statInsufficient.value.size,
+                canAfford = money.value >= viewModel.statPurchaseCost * statInsufficient.value.size,
                 onBuy = { viewModel.buyStatToApplyPendingCard() },
                 onCancel = { viewModel.cancelStatPurchase() }
             )
         }
+
     }
 }
