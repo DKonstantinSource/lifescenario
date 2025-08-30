@@ -14,7 +14,7 @@ object CardAfterCareer {
             statEffect = mapOf(RICHES to 3),
             salary = 2500,
             tax = 400,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_work_upgrade.jpg"
         ),
         CardEntity(
             cardPersonalId = 306,
@@ -24,17 +24,17 @@ object CardAfterCareer {
             statEffect = mapOf(HEALTH to -3),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_burnout_work.jpg"
         ),
         CardEntity(
             cardPersonalId = 307,
             title = "Переезд по работе",
             description = "Новая локация и опыт.",
             type = CardType.JOB,
-            statEffect = mapOf(RICHES to 1, EDUCATION to 1),
-            salary = 2200,
-            tax = 350,
-            backgroundImage = "image_university.jpg"
+            statEffect = mapOf(RICHES to -2),
+            salary = 0,
+            tax = 3000,
+            backgroundImage = "image_moving_work.jpg"
         ),
         CardEntity(
             cardPersonalId = 308,
@@ -44,7 +44,7 @@ object CardAfterCareer {
             statEffect = mapOf(EDUCATION to 2),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_business_conference.jpg"
         ),
         CardEntity(
             cardPersonalId = 309,
@@ -54,27 +54,27 @@ object CardAfterCareer {
             statEffect = mapOf(RICHES to 2, EDUCATION to 1),
             salary = 1800,
             tax = 200,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_startap.jpg"
         ),
         CardEntity(
             cardPersonalId = 310,
-            title = "Проект провален",
+            title = "Бизнес сгорел",
             description = "Вы теряете деньги и мотивацию.",
             type = CardType.STATS,
-            statEffect = mapOf(RICHES to -2, HEALTH to -1),
+            statEffect = mapOf(RICHES to -4, HEALTH to -1),
             salary = 0,
-            tax = 0,
-            backgroundImage = "image_university.jpg"
+            tax = 5000,
+            backgroundImage = "image_burn_building.jpg"
         ),
         CardEntity(
             cardPersonalId = 311,
-            title = "Новый наставник",
+            title = "Новый наставник / коуч",
             description = "Вы находите вдохновение и учитесь.",
             type = CardType.EDUCATION,
-            statEffect = mapOf(EDUCATION to 1, HEALTH to 1),
+            statEffect = mapOf(EDUCATION to 2),
             salary = 0,
-            tax = 0,
-            backgroundImage = "image_university.jpg"
+            tax = 2000,
+            backgroundImage = "image_couching.jpg"
         ),
         CardEntity(
             cardPersonalId = 312,
@@ -82,19 +82,18 @@ object CardAfterCareer {
             description = "Новые горизонты и испытания.",
             type = CardType.JOB,
             statEffect = mapOf(RICHES to 2, EDUCATION to 1),
-            salary = 3000,
-            tax = 500,
-            backgroundImage = "image_university.jpg"
+            salary = 4000,
+            backgroundImage = "image_work_w_border.jpg"
         ),
         CardEntity(
             cardPersonalId = 313,
-            title = "Учёба в магистратуре",
+            title = "Получение докторской степени",
             description = "Вы растёте профессионально.",
             type = CardType.EDUCATION,
-            statEffect = mapOf(EDUCATION to 2, RICHES to -1),
+            statEffect = mapOf(EDUCATION to 2, RICHES to -3, HEALTH to -1),
             salary = 0,
-            tax = 0,
-            backgroundImage = "image_university.jpg"
+            tax = 3000,
+            backgroundImage = "image_stage_doctor.jpg"
         ),
         CardEntity(
             cardPersonalId = 314,
@@ -102,9 +101,8 @@ object CardAfterCareer {
             description = "Вы добились признания.",
             type = CardType.STATS,
             statEffect = mapOf(RICHES to 4, HEALTH to -1),
-            salary = 3500,
-            tax = 600,
-            backgroundImage = "image_university.jpg"
+            salary = 4000,
+            backgroundImage = "image_arrow_up.jpg"
         )
     )
 }
