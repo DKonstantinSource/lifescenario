@@ -12,9 +12,9 @@ object MatureCardHobbie {
             title = "Путешествия",
             description = "Исследование новых мест и культур",
             type = CardType.STATS,
-            statEffect = mapOf(HEALTH to 1, RICHES to -2),
+            statEffect = mapOf(HEALTH to 3, EDUCATION to 1),
             salary = 0,
-            tax = 0,
+            tax = -2000,
             backgroundImage = "image_journey.jpg"
         ),
         CardEntity(
@@ -24,7 +24,7 @@ object MatureCardHobbie {
             type = CardType.STATS,
             statEffect = mapOf(HEALTH to 2),
             salary = 0,
-            tax = 0,
+            tax = 500,
             backgroundImage = "image_training_room.jpg"
         ),
         CardEntity(
@@ -32,9 +32,9 @@ object MatureCardHobbie {
             title = "Творчество",
             description = "Музыка, рисование, развитие навыков",
             type = CardType.STATS,
-            statEffect = mapOf(EDUCATION to 1, HEALTH to 1),
+            statEffect = mapOf(EDUCATION to 1, HEALTH to -2, MONEY to -2),
             salary = 0,
-            tax = 0,
+            tax = 1000,
             backgroundImage = "image_painting.jpg"
         ),
         CardEntity(
@@ -42,9 +42,9 @@ object MatureCardHobbie {
             title = "Новые курсы",
             description = "Постигать новое и развиваться",
             type = CardType.EDUCATION,
-            statEffect = mapOf(EDUCATION to 2, MONEY to -1),
+            statEffect = mapOf(EDUCATION to 3, MONEY to -2),
             salary = 0,
-            tax = 0,
+            tax = 1000,
             backgroundImage = "image_courses.jpg"
         ),
         CardEntity(
