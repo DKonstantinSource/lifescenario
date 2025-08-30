@@ -13,7 +13,7 @@ object CardHomeBuying {
             type = CardType.STATS,
             statEffect = mapOf(HEALTH to 1, RICHES to -2),
             salary = 0,
-            tax = 450,
+            tax = 4500,
             bonusScoreHomeBuying = 4000,
             backgroundImage = "image_apartment_studio.jpg"
         ),
@@ -24,7 +24,7 @@ object CardHomeBuying {
             type = CardType.STATS,
             statEffect = mapOf(HEALTH to 2, RICHES to -3),
             salary = 0,
-            tax = 900,
+            tax = 6500,
             bonusScoreHomeBuying = 5500,
             backgroundImage = "image_one_room_apartment.jpg"
         ),
@@ -33,9 +33,9 @@ object CardHomeBuying {
             title = "Таунхаус",
             description = "Дом с небольшим участком, уютно и просторно.",
             type = CardType.STATS,
-            statEffect = mapOf(HEALTH to 3, RICHES to -6),
+            statEffect = mapOf(HEALTH to 2, RICHES to -6),
             salary = 0,
-            tax = 2000,
+            tax = 10000,
             bonusScoreHomeBuying = 6000,
             backgroundImage = "image_townhouse.jpg"
         ),
@@ -44,9 +44,9 @@ object CardHomeBuying {
             title = "Загородный дом",
             description = "Просторный дом за городом. Тишина и свежий воздух.",
             type = CardType.STATS,
-            statEffect = mapOf(HEALTH to 4, RICHES to -8),
+            statEffect = mapOf(HEALTH to 3, RICHES to -8),
             salary = 0,
-            tax = 3000,
+            tax = 8000,
             bonusScoreHomeBuying = 6000,
             backgroundImage = "image_country_house.jpg"
         ),
@@ -57,7 +57,7 @@ object CardHomeBuying {
             type = CardType.STATS,
             statEffect = mapOf(HEALTH to 4, RICHES to -8),
             salary = 0,
-            tax = 3000,
+            tax = 14000,
             bonusScoreHomeBuying = 8000,
             backgroundImage = "image_luxury_country_house.jpg"
         ),
@@ -68,7 +68,7 @@ object CardHomeBuying {
             type = CardType.STATS,
             statEffect = mapOf(HEALTH to 5, RICHES to -12),
             salary = 0,
-            tax = 4000,
+            tax = 20000,
             bonusScoreHomeBuying = 10000,
             backgroundImage = "image_mansion.jpg"
         )

@@ -13,7 +13,7 @@ object WorldEvents {
             description = "Сильный торнадо разрушил часть города, теряете часть богатства и здоровье!",
             type = CardType.EVENT,
             statEffect = mapOf(RICHES to -3, HEALTH to -2),
-            tax = -1500,
+            tax = 1500,
             backgroundImage = "image_tornado.jpg"
         ),
         CardEntity(
@@ -22,7 +22,7 @@ object WorldEvents {
             description = "Вирус охватил город, здоровье падает, расходы на медицину растут",
             type = CardType.EVENT,
             statEffect = mapOf(HEALTH to -3, RICHES to -2),
-            tax = -1000,
+            tax = 1000,
             backgroundImage = "image_quarantine.jpg"
         ),
         CardEntity(
@@ -31,7 +31,7 @@ object WorldEvents {
             description = "Пожар уничтожил имущество, теряете деньги и здоровье",
             type = CardType.EVENT,
             statEffect = mapOf(RICHES to -2, HEALTH to -1),
-            tax = -1500,
+            tax = 1500,
             backgroundImage = "image_world_in_fire.jpg"
         ),
         CardEntity(
@@ -76,7 +76,7 @@ object WorldEvents {
             description = "Цены растут, теряете часть дохода",
             type = CardType.EVENT,
             statEffect = mapOf(RICHES to -3),
-            tax = -3000,
+            tax = 3000,
             backgroundImage = "image_economy_crysis.jpg"
         ),
         CardEntity(
@@ -85,7 +85,7 @@ object WorldEvents {
             description = "Помогаете городу, улучшаете образование и здоровье",
             type = CardType.EVENT,
             statEffect = mapOf(EDUCATION to 2, HEALTH to 2),
-            tax = -500,
+            tax = 500,
             backgroundImage = "image_charity.jpg"
         ),
         CardEntity(
@@ -102,7 +102,7 @@ object WorldEvents {
             description = "Стихийное бедствие в городе, теряете богатство и здоровье",
             type = CardType.EVENT,
             statEffect = mapOf(RICHES to -3, HEALTH to -2),
-            tax = -1000,
+            tax = 1000,
             backgroundImage = "image_earthquake.jpg"
         ),
         CardEntity(
@@ -120,7 +120,7 @@ object WorldEvents {
             description = "Ваши деньги украдены, теряете богатство",
             type = CardType.EVENT,
             statEffect = mapOf(RICHES to -2),
-            tax = -10000,
+            tax = 10000,
             backgroundImage = "image_cyber.jpg"
         ),
         CardEntity(
@@ -166,7 +166,7 @@ object WorldEvents {
             type = CardType.EVENT,
             statEffect = mapOf(HEALTH to -2, RICHES to -2),
             tax = 800,
-            backgroundImage = "image_wild_fire.jpg"
+            backgroundImage = "image_world_in_fire.jpg"
         ),
         CardEntity(
             cardPersonalId = 219,
@@ -175,7 +175,7 @@ object WorldEvents {
             type = CardType.EVENT,
             statEffect = mapOf(EDUCATION to 1, RICHES to 1),
             salary = 1000,
-            backgroundImage = "image_hight_tech.jpg"
+            backgroundImage = "image_high_tech.jpg"
         ),
         CardEntity(
             cardPersonalId = 220,
@@ -194,9 +194,16 @@ object WorldEvents {
             salary = 2500,
             statEffect = mapOf(RICHES to 2, EDUCATION to 2, HEALTH to -3),
             backgroundImage = "image_many_work.jpg"
+        ),
+        CardEntity(
+            cardPersonalId = 222,
+            title = "Работа в поте лица",
+            description = "Вы работаете как не в себя! ",
+            type = CardType.EVENT,
+            salary = 2500,
+            statEffect = mapOf(RICHES to 2, EDUCATION to 2, HEALTH to -3),
+            backgroundImage = "image_many_work.jpg"
         )
-
-
 
     )
 

@@ -30,8 +30,8 @@ class GameViewModel(
     private val _isIntroVisible = MutableStateFlow(true)
     val isIntroVisible: StateFlow<Boolean> = _isIntroVisible
 
-    private val _showInsufficientStatOverlay = MutableStateFlow<List<PersonalStat>>(emptyList())
-    val showInsufficientStatOverlay: StateFlow<List<PersonalStat>> = _showInsufficientStatOverlay
+    private val _showInsufficientStatOverlay = MutableStateFlow<Map<PersonalStat, Int>>(emptyMap())
+    val showInsufficientStatOverlay: StateFlow<Map<PersonalStat, Int>> = _showInsufficientStatOverlay
 
 
     private val _showHomeBuyingOverlay = MutableStateFlow(false)
@@ -48,6 +48,14 @@ class GameViewModel(
 
     val money: StateFlow<Int> = economyViewModel.money
 
+    fun applyRewardStatsFromAd(missingStats: Map<PersonalStat, Int>) {
+        missingStats.forEach { (stat, value) -> increaseStat(stat, value) }
+        _showInsufficientStatOverlay.value = emptyMap()
+        _cardPending.value?.let { applyCardEffect(it) }
+        _cardPending.value = null
+    }
+
+
     fun hideIntroAndStartGame() {
         _isIntroVisible.value = false
         cardManager.startGame()
@@ -60,36 +68,39 @@ class GameViewModel(
     }
 
     fun selectCard(card: CardEntity) {
-        val missingStats = card.statEffect.entries.filter { (stat, value) ->
-            value < 0 && getStatValue(stat) + value < 0
-        }.map { it.key }
+        val missingStatsMap = card.statEffect.entries
+            .filter { (stat, value) -> value < 0 && getStatValue(stat) + value < 0 }
+            .associate { (stat, value) ->
+                val needed = -(getStatValue(stat) + value)
+                stat to needed
+            }
 
-        if (missingStats.isNotEmpty()) {
-            _showInsufficientStatOverlay.value = missingStats
+        if (missingStatsMap.isNotEmpty()) {
+            _showInsufficientStatOverlay.value = missingStatsMap
             _cardPending.value = card
         } else {
             applyCardEffect(card)
         }
     }
 
-
-    fun buyStatToApplyPendingCard() {
+    fun buyStatViaMoney() {
         val card = _cardPending.value ?: return
-        val stats = _showInsufficientStatOverlay.value
-        if (stats.isEmpty()) return
+        val statsMap = _showInsufficientStatOverlay.value
+        if (statsMap.isEmpty()) return
 
-        val totalCost = statPurchaseCost * stats.size
+        val totalCost = statsMap.values.sum() * statPurchaseCost
         if (economyViewModel.money.value >= totalCost) {
             economyViewModel.applyCustomChange(-totalCost, "покупка статов")
-            stats.forEach { increaseStat(it, 1) }
-            _showInsufficientStatOverlay.value = emptyList()
+            statsMap.forEach { (stat, count) -> increaseStat(stat, count) }
+            _showInsufficientStatOverlay.value = emptyMap()
             _cardPending.value = null
             selectCard(card)
         }
     }
 
+
     fun cancelStatPurchase() {
-        _showInsufficientStatOverlay.value = emptyList()
+        _showInsufficientStatOverlay.value = emptyMap()
         _cardPending.value = null
     }
 

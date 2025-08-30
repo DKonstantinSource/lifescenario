@@ -78,7 +78,7 @@ fun CardItemWithStats(
                 )
                 .padding(12.dp)
         ) {
-            // ✅ Сначала показываем зарплату
+
             card.salary?.let { salary ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -99,7 +99,6 @@ fun CardItemWithStats(
                 }
             }
 
-            // ✅ Потом показываем налог
             card.tax?.let { tax ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -120,7 +119,27 @@ fun CardItemWithStats(
                 }
             }
 
-            // ✅ Потом обычные статы
+            if (card.priceCost != 0) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Стоимость -${card.priceCost}",
+                        fontSize = 14.sp,
+                        color = Color(0xFFE67E22)
+                    )
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_money),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = Color.Unspecified
+                    )
+                }
+            }
+
+
             card.statEffect.forEach { (stat, value) ->
                 val sign = if (value >= 0) "+" else "-"
                 val color = if (value >= 0) Color(0xFF2ECC71) else Color(0xFFE74C3C)

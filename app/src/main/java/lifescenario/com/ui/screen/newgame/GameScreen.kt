@@ -1,19 +1,25 @@
 package lifescenario.com.ui.screen.newgame
 
+import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import lifescenario.com.ui.screen.newgame.overlay.GameOverlay
 import lifescenario.com.ui.screen.newgame.overlay.HomeBuyingOverlay
 import lifescenario.com.ui.screen.newgame.overlay.InsufficientStatOverlay
 import lifescenario.com.ui.viewmodel.GameViewModel
+import lifescenario.com.R
+import lifescenario.com.ui.viewmodel.AdsViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun GameScreen(viewModel: GameViewModel) {
@@ -31,17 +37,34 @@ fun GameScreen(viewModel: GameViewModel) {
     val statInsufficient = viewModel.showInsufficientStatOverlay.collectAsState()
     val canAfford = money.value >= viewModel.statPurchaseCost
 
+    val missingStatsMap = statInsufficient.value
+    val context = LocalContext.current
+    val adsViewModel: AdsViewModel = koinViewModel()
+
+
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                Brush.linearGradient(
-                    colors = listOf(Color(0xFF2ECC71), Color(0xFF1ABC9C)),
-                    start = Offset(0f, 0f),
-                    end = Offset(1000f, 2000f)
-                )
-            )
+        modifier = Modifier.fillMaxSize()
+//            .background(
+//                Brush.linearGradient(
+//                    colors = listOf(Color(0xFF2ECC71), Color(0xFF1ABC9C)),
+//                    start = Offset(0f, 0f),
+//                    end = Offset(1000f, 2000f)
+//                )
+//            )
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.image_black_background),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.4f))
+        )
+
+
         if (isIntroVisible.value) {
             IntroOverlay(
                 onContinue = { viewModel.hideIntroAndStartGame() }
@@ -80,12 +103,22 @@ fun GameScreen(viewModel: GameViewModel) {
         if (statInsufficient.value.isNotEmpty()) {
             InsufficientStatOverlay(
                 missingStats = statInsufficient.value,
-                totalCost = viewModel.statPurchaseCost * statInsufficient.value.size,
-                canAfford = money.value >= viewModel.statPurchaseCost * statInsufficient.value.size,
-                onBuy = { viewModel.buyStatToApplyPendingCard() },
-                onCancel = { viewModel.cancelStatPurchase() }
+                money = money.value,
+                onBuy = { viewModel.buyStatViaMoney() },
+                onCancel = { viewModel.cancelStatPurchase() },
+                adsViewModel = adsViewModel,
+                gameViewModel = viewModel,
+                onShowTotal = {
+                    Toast.makeText(
+                        context,
+                        "Итого: ${statInsufficient.value.values.sumOf { it * viewModel.statPurchaseCost }} монет",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             )
         }
+
+
 
     }
 }

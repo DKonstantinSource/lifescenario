@@ -20,6 +20,7 @@ import kotlin.math.abs
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalDensity
+import lifescenario.com.R
 
 
 
@@ -100,9 +101,10 @@ fun CardSelectionScreen(
 @Composable
 fun getDrawableFromName(name: String): Int {
     val context = LocalContext.current
-    return context.resources.getIdentifier(
+    val resId = context.resources.getIdentifier(
         name.substringBeforeLast("."),
         "drawable",
         context.packageName
     )
+    return if (resId != 0) resId else R.drawable.image_placeholder
 }

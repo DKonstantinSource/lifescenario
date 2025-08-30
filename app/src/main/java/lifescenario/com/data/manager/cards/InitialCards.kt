@@ -28,7 +28,7 @@ object InitialCards {
             description = "Вы решили пойти учиться дальше.",
             type = CardType.EDUCATION,
             statEffect = mapOf(EDUCATION to 2),
-            tax = 1500,
+            priceCost = 1500,
             nextCardPersonalIds = WorkAfterUniversity.cards.map { it.cardPersonalId },
             backgroundImage = "image_university_admission.jpg"
         ),
@@ -56,7 +56,7 @@ object InitialCards {
             title = "Венчание",
             description = "Вы создаете семью. Здоровье +2, богатство -1",
             type = CardType.STATS,
-            statEffect = mapOf(HEALTH to 2, RICHES to -1),
+            statEffect = mapOf(HEALTH to 2, RICHES to 1),
             nextCardPersonalIds = CardAfterMarried.cards.map { it.cardPersonalId },
             backgroundImage = "image_married.jpg"
         ),
@@ -65,7 +65,7 @@ object InitialCards {
             title = "Карьера",
             description = "Вы выбираете карьерный путь",
             type = CardType.STATS,
-            statEffect = mapOf(RICHES to 3, EDUCATION to 1),
+            statEffect = mapOf(RICHES to 2, EDUCATION to 1),
             nextCardPersonalIds = CardAfterCareer.cards.map { it.cardPersonalId },
             backgroundImage = "image_carrier.jpg"
         ),

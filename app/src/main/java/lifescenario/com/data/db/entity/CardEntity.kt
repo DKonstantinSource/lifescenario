@@ -18,4 +18,5 @@ data class CardEntity(
     val salary: Int? = null,
     val tax: Int? = null,
     val bonusScoreHomeBuying: Int = 0,
+    val priceCost: Int = 0
 )
