@@ -15,7 +15,7 @@ object MatureCardHobbie {
             statEffect = mapOf(HEALTH to 1, RICHES to -2),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_journey.jpg"
         ),
         CardEntity(
             cardPersonalId = 412,
@@ -25,7 +25,7 @@ object MatureCardHobbie {
             statEffect = mapOf(HEALTH to 2),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_training_room.jpg"
         ),
         CardEntity(
             cardPersonalId = 413,
@@ -35,7 +35,7 @@ object MatureCardHobbie {
             statEffect = mapOf(EDUCATION to 1, HEALTH to 1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_painting.jpg"
         ),
         CardEntity(
             cardPersonalId = 414,
@@ -45,7 +45,7 @@ object MatureCardHobbie {
             statEffect = mapOf(EDUCATION to 2, MONEY to -1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_courses.jpg"
         ),
         CardEntity(
             cardPersonalId = 415,
@@ -55,7 +55,7 @@ object MatureCardHobbie {
             statEffect = mapOf(HEALTH to 2, RICHES to -1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_bike_trip.jpg"
         ),
         CardEntity(
             cardPersonalId = 416,
@@ -65,7 +65,7 @@ object MatureCardHobbie {
             statEffect = mapOf(EDUCATION to 1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_gallery.jpg"
         ),
         CardEntity(
             cardPersonalId = 417,
@@ -75,7 +75,7 @@ object MatureCardHobbie {
             statEffect = emptyMap(),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_cooking.jpg"
         ),
         CardEntity(
             cardPersonalId = 418,
@@ -85,7 +85,7 @@ object MatureCardHobbie {
             statEffect = mapOf(HEALTH to 1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_volunteering.jpg"
         ),
         CardEntity(
             cardPersonalId = 419,
@@ -95,7 +95,7 @@ object MatureCardHobbie {
             statEffect = mapOf(HEALTH to 2),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_yoga.jpg"
         ),
         CardEntity(
             cardPersonalId = 420,
@@ -105,7 +105,7 @@ object MatureCardHobbie {
             statEffect = mapOf(HEALTH to 1),
             salary = 0,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_camping_wild.jpg"
         )
     )
 }

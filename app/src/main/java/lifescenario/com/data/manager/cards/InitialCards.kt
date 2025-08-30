@@ -85,7 +85,7 @@ object InitialCards {
             type = CardType.STATS,
             statEffect = emptyMap(),
             nextCardPersonalIds = MatureCardRest.cards.map { it.cardPersonalId },
-            backgroundImage = "image_adult_years_1.jpg"
+            backgroundImage = "image_quiet_life.jpg"
         ),
         CardEntity(
             cardPersonalId = 402,
@@ -94,7 +94,7 @@ object InitialCards {
             type = CardType.STATS,
             statEffect = emptyMap(),
             nextCardPersonalIds = MatureCardHobbie.cards.map { it.cardPersonalId },
-            backgroundImage = "image_adult_years_2.jpg"
+            backgroundImage = "image_camping_mount.jpg"
         )
 
     )
