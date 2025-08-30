@@ -1,4 +1,4 @@
-package lifescenario.com.data.manager.cards
+package lifescenario.com.data.manager.cards.youth
 
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.db.entity.CardType
@@ -14,7 +14,7 @@ object WorkWithoutUniversity {
             statEffect = mapOf(RICHES to 2, HEALTH to 3, EDUCATION to 1),
             salary = 1400,
             tax = 300,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_delivery.jpg"
         ),
         CardEntity(
             cardPersonalId = 102,
@@ -24,7 +24,7 @@ object WorkWithoutUniversity {
             statEffect = mapOf(RICHES to 1, HEALTH to 1, EDUCATION to 2),
             salary = 900,
             tax = 120,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_shop_worker.jpg"
         ),
         CardEntity(
             cardPersonalId = 103,
@@ -34,7 +34,7 @@ object WorkWithoutUniversity {
             statEffect = mapOf(RICHES to 2, HEALTH to -1, EDUCATION to 3),
             salary = 1000,
             tax = 150,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_intern_builder.jpg"
         ),
         CardEntity(
             cardPersonalId = 104,
@@ -44,7 +44,7 @@ object WorkWithoutUniversity {
             statEffect = mapOf(RICHES to 1, HEALTH to 1),
             salary = 850,
             tax = 100,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_cook.jpg"
         ),
         CardEntity(
             cardPersonalId = 105,
@@ -54,7 +54,7 @@ object WorkWithoutUniversity {
             statEffect = mapOf(RICHES to 2, EDUCATION to 1),
             salary = 700,
             tax = 0,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_freelancer_new.jpg"
         ),
         CardEntity(
             cardPersonalId = 106,
@@ -64,7 +64,7 @@ object WorkWithoutUniversity {
             statEffect = mapOf(RICHES to 1, HEALTH to 1),
             salary = 800,
             tax = 80,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_work_barista.jpg"
         )
     )
 }

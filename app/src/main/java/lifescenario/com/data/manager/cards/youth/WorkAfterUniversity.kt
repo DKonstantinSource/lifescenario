@@ -1,4 +1,4 @@
-package lifescenario.com.data.manager.cards
+package lifescenario.com.data.manager.cards.youth
 
 import lifescenario.com.data.db.entity.CardEntity
 import lifescenario.com.data.db.entity.CardType
@@ -14,7 +14,7 @@ object WorkAfterUniversity {
             statEffect = mapOf(RICHES to 3, EDUCATION to 1),
             salary = 2000,
             tax = 1100,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_manager_logistic.jpg"
         ),
         CardEntity(
             cardPersonalId = 152,
@@ -24,7 +24,7 @@ object WorkAfterUniversity {
             statEffect = mapOf(EDUCATION to 3, RICHES to 1, HEALTH to 2),
             salary = 1400,
             tax = 450,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_laboratory.jpg"
         ),
         CardEntity(
             cardPersonalId = 153,
@@ -34,7 +34,7 @@ object WorkAfterUniversity {
             statEffect = mapOf(RICHES to 4, EDUCATION to 1, HEALTH to 1),
             salary = 2500,
             tax = 2900,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_it_work.jpg"
         ),
         CardEntity(
             cardPersonalId = 154,
@@ -44,7 +44,7 @@ object WorkAfterUniversity {
             statEffect = mapOf(RICHES to 3, EDUCATION to 2, HEALTH to 2),
             salary = 2200,
             tax = 1700,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_judge.jpg"
         ),
         CardEntity(
             cardPersonalId = 155,
@@ -54,7 +54,7 @@ object WorkAfterUniversity {
             statEffect = mapOf(RICHES to 1, EDUCATION to 2, HEALTH to 1),
             salary = 1900,
             tax = 200,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_freelance.jpg"
         ),
         CardEntity(
             cardPersonalId = 156,
@@ -64,7 +64,7 @@ object WorkAfterUniversity {
             statEffect = mapOf(RICHES to 4, EDUCATION to 1),
             salary = 2700,
             tax = 2000,
-            backgroundImage = "image_university.jpg"
+            backgroundImage = "image_pilot.jpg"
         )
     )
 }

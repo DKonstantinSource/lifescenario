@@ -9,5 +9,7 @@ enum class CardType {
     REALTY,
     MOBILITY,
     EDUCATION,
-    EVENT
+    EVENT,
+    FAMILY,
+    CAREER
 }

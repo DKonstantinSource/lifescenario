@@ -6,8 +6,10 @@ import lifescenario.com.data.db.entity.CardEntity
 
 interface CardManagerContract {
 
-    val currentCards: StateFlow<List<CardEntity>>
     fun startGame()
     fun selectCard(selectedCard: CardEntity)
+    fun selectCards(cards: List<CardEntity>)
     fun getCurrentCard(): CardEntity?
+    fun getCurrentCards(): List<CardEntity>
+    fun isEndOfCareerOrMarriageBranch(): Boolean
 }

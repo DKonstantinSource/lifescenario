@@ -24,7 +24,7 @@ fun IntroOverlay(onContinue: () -> Unit) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(0.7f)
-                .fillMaxHeight(0.5f)
+                .fillMaxHeight(0.45f)
                 .background(
                     color = MaterialTheme.colorScheme.surface,
                     shape = MaterialTheme.shapes.medium

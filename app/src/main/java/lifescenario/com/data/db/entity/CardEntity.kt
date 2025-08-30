@@ -16,5 +16,7 @@ data class CardEntity(
     val nextCardPersonalIds: List<Int> = emptyList(),
     val backgroundImage: String = "",
     val salary: Int? = null,
-    val tax: Int? = null
+    val tax: Int? = null,
+    val bonusScoreHomeBuying: Int = 0,
+    val priceCost: Int = 0
 )

@@ -1,117 +1,110 @@
 package lifescenario.com.ui.screen.newgame
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import lifescenario.com.data.db.entity.CardEntity
+import kotlin.math.abs
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalDensity
+import lifescenario.com.R
+
+
 
 @Composable
 fun CardSelectionScreen(
     cards: List<CardEntity>,
     onCardSelected: (CardEntity) -> Unit
 ) {
+    if (cards.isEmpty()) return
+
+    val cardWidth = 320.dp
+    val cardSpacing = 40.dp
+    val coroutineScope = rememberCoroutineScope()
+    var currentIndex by remember { mutableStateOf(0) }
+    var dragOffset by remember { mutableStateOf(0f) }
+
+
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .pointerInput(cards) {
+                detectHorizontalDragGestures(
+                    onDragEnd = {
+                        if (dragOffset < -100 && currentIndex < cards.lastIndex) currentIndex++
+                        else if (dragOffset > 100 && currentIndex > 0) currentIndex--
+                        currentIndex = currentIndex.coerceIn(0, cards.lastIndex)
+
+                        dragOffset = 0f
+                    },
+
+                    onHorizontalDrag = { _, delta ->
+                        dragOffset += delta
+                    }
+                )
+            },
         contentAlignment = Alignment.Center
     ) {
-        Row(
-            modifier = Modifier
-                .wrapContentWidth()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.Top
-        ) {
-            cards.take(2).forEach { card ->
-                CardItemWithStats(
-                    card = card,
-                    onCardSelected = onCardSelected,
-                    modifier = Modifier.width(160.dp) // фиксированная ширина, чтобы была одна или две карты
-                )
+        val density = LocalDensity.current
+        val cardOffsetPx = with(density) { (cardWidth.toPx() - cardSpacing.toPx()) }
+
+        cards.forEachIndexed { index, card ->
+            val offsetFromCenter = if (cards.size == 1) 0 else index - currentIndex
+
+            val animatedOffset by animateFloatAsState(
+                targetValue = offsetFromCenter * cardOffsetPx + dragOffset,
+                animationSpec = tween(durationMillis = 250)
+                    //300 prolag
+            )
+
+            val progressToCenter = (1f - (abs(offsetFromCenter.toFloat()) / 2f)).coerceIn(0f, 1f)
+            val scale by animateFloatAsState(
+                targetValue = 0.8f + 0.2f * progressToCenter,
+                animationSpec = tween(300)
+            )
+
+            val zIndexValue = if (index == currentIndex) 1f else 0f
+
+            Box(
+                modifier = Modifier
+                    .width(cardWidth)
+                    .graphicsLayer {
+                        translationX = animatedOffset
+                        scaleX = scale
+                        scaleY = scale
+                        this.alpha = alpha
+                    }
+                    .zIndex(zIndexValue)
+                    .align(Alignment.Center)
+            ) {
+                CardItemWithStats(card = card, onCardSelected = onCardSelected)
             }
         }
     }
 }
 
-@Composable
-fun CardItemWithStats(
-    card: CardEntity,
-    onCardSelected: (CardEntity) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-            .clickable { onCardSelected(card) }
-            .background(Color.DarkGray, RoundedCornerShape(16.dp))
-            .padding(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Квадратное изображение
-        Image(
-            painter = painterResource(id = getDrawableFromName(card.backgroundImage)),
-            contentDescription = card.title,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-                .clip(RoundedCornerShape(12.dp))
-        )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = card.title,
-            fontSize = 18.sp,
-            color = Color.White
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(
-            text = card.description,
-            fontSize = 14.sp,
-            color = Color.White,
-            maxLines = 2
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Column(
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            horizontalAlignment = Alignment.Start,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            card.statEffect.forEach { (stat, value) ->
-                val sign = if (value >= 0) "+" else "-"
-                Text(
-                    text = "$stat $sign${kotlin.math.abs(value)}",
-                    fontSize = 12.sp,
-                    color = if (value >= 0) Color.Green else Color.Red
-                )
-            }
-        }
-    }
-}
 
 @Composable
 fun getDrawableFromName(name: String): Int {
     val context = LocalContext.current
-    return context.resources.getIdentifier(
+    val resId = context.resources.getIdentifier(
         name.substringBeforeLast("."),
         "drawable",
         context.packageName
     )
+    return if (resId != 0) resId else R.drawable.image_placeholder
 }
